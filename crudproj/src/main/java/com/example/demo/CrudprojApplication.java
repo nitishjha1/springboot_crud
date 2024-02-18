@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -17,7 +19,7 @@ public class CrudprojApplication {
 		ApplicationContext context = SpringApplication.run(CrudprojApplication.class, args);
 		EmployeeRepository employeeRepository = context.getBean(EmployeeRepository.class);
 		System.out.println("Enter the choice for operation");
-		boolean op = false;
+		boolean op = true;
 		Scanner sc = new Scanner(System.in);
 		while (!op) {
 			System.out.println("Press 1 for Insert data");
@@ -91,7 +93,33 @@ public class CrudprojApplication {
 
 			}
 		}
-
+		//custom finder method
+		System.out.println("_______________BYNAME_______________");
+		List<Employee> employee=employeeRepository.findByName("pl");
+		employee.forEach(e->{System.out.println(e);});
+		System.out.println("_______________AND_______________");
+		List<Employee> list1=employeeRepository.findByNameAndRole("pl", "devoops");
+		list1.forEach(e1->{System.out.println(e1);});
+		System.out.println("______________OR________________");
+		List<Employee>list2=employeeRepository.findByNameOrRole("nj", "tester");
+		list2.forEach(e3->{System.out.println(e3);});
+		System.out.println("______________COntaines_______________");
+		List<Employee> list3=employeeRepository.findByNameContains("n");
+		list3.forEach(e4->{System.out.println(e4);});
+		System.out.println("______________JPQL_______________");
+       List<Employee> list4=employeeRepository.findByRole("opp");
+       list4.forEach(e5->{System.out.println(e5);});
+       System.out.println("______________JPQL1_______________");
+       List<Employee>list6=employeeRepository.getEmps();
+       list6.forEach(e6->{System.out.println(e6);});
+       System.out.println("______________JPQL2_______________");
+       List<Employee> list8=employeeRepository.getAllEmployee();
+       //list8.forEach(e8->{System.out.println(e8);});   
+       Iterator< Employee> itr=list8.iterator();
+//       while(itr.hasNext()) {
+//    	   System.out.println(itr.next());
+//       }
+       
 	}
 
 }
